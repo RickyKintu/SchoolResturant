@@ -9,7 +9,14 @@ const getCustomer = async (customerId: string): Promise<Customer | null> => {
     if (!response.ok) {
       return null;
     }
-    return response.json();
+    const data = await response.json();
+    
+    // API returns { value: [customer], Count: 1 }
+    if (data.value && Array.isArray(data.value) && data.value.length > 0) {
+      return data.value[0];
+    }
+    
+    return null;
   } catch (error) {
     console.error('Error fetching customer:', error);
     return null;
