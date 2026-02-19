@@ -1,8 +1,8 @@
 // Restaurant configuration
 // This should be created once via the API and then stored
 export const RESTAURANT_CONFIG = {
-  // You'll need to replace this with your actual restaurant ID after creating it
-  id: 'YOUR_RESTAURANT_ID',
+  // Restaurant ID from API
+  id: '6996edaf1f79230601108dac',
   name: 'La Bella Vista',
   address: {
     street: 'Storgatan 123',
