@@ -1,6 +1,20 @@
-import type { Restaurant, Booking, BookingRequest, AvailabilityCheck } from '../types';
+import type { Restaurant, Booking, BookingRequest, AvailabilityCheck, BookingFromAPI, Customer } from '../types';
 
 const API_BASE_URL = 'https://school-restaurant-api.azurewebsites.net';
+
+// Helper function to fetch customer information
+const getCustomer = async (customerId: string): Promise<Customer | null> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/customer/${customerId}`);
+    if (!response.ok) {
+      return null;
+    }
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching customer:', error);
+    return null;
+  }
+};
 
 // Restaurant API
 export const createRestaurant = async (restaurantData: Omit<Restaurant, 'id'>): Promise<Restaurant> => {
@@ -31,9 +45,38 @@ export const getAllBookings = async (restaurantId: string): Promise<Booking[]> =
     throw new Error('Failed to fetch bookings');
   }
 
-  const data = await response.json();
-  // Ensure we always return an array
-  return Array.isArray(data) ? data : [];
+  const bookingsFromAPI: BookingFromAPI[] = await response.json();
+  
+  // Ensure we have an array
+  if (!Array.isArray(bookingsFromAPI)) {
+    return [];
+  }
+
+  // Fetch customer information for each booking
+  const bookingsWithCustomers = await Promise.all(
+    bookingsFromAPI.map(async (booking) => {
+      const customer = await getCustomer(booking.customerId);
+      
+      return {
+        id: booking._id,
+        restaurantId: booking.restaurantId,
+        date: booking.date,
+        time: booking.time,
+        numberOfGuests: booking.numberOfGuests,
+        customer: customer ? {
+          name: customer.name,
+          email: customer.email,
+          phone: customer.phone,
+        } : {
+          name: 'Okänd',
+          email: 'N/A',
+          phone: 'N/A',
+        },
+      };
+    })
+  );
+
+  return bookingsWithCustomers;
 };
 
 // Booking API - Check availability
@@ -83,7 +126,17 @@ export const createBooking = async (bookingData: BookingRequest): Promise<Bookin
     throw new Error('Failed to create booking');
   }
 
-  return response.json();
+  const bookingFromAPI: BookingFromAPI = await response.json();
+  
+  // Return booking in the format our app expects
+  return {
+    id: bookingFromAPI._id,
+    restaurantId: bookingFromAPI.restaurantId,
+    date: bookingFromAPI.date,
+    time: bookingFromAPI.time,
+    numberOfGuests: bookingFromAPI.numberOfGuests,
+    customer: bookingData.customer, // Use the customer data we sent
+  };
 };
 
 export const deleteBooking = async (bookingId: string): Promise<void> => {
@@ -109,5 +162,25 @@ export const updateBooking = async (bookingId: string, bookingData: Partial<Book
     throw new Error('Failed to update booking');
   }
 
-  return response.json();
+  const bookingFromAPI: BookingFromAPI = await response.json();
+  
+  // Fetch customer information
+  const customer = await getCustomer(bookingFromAPI.customerId);
+  
+  return {
+    id: bookingFromAPI._id,
+    restaurantId: bookingFromAPI.restaurantId,
+    date: bookingFromAPI.date,
+    time: bookingFromAPI.time,
+    numberOfGuests: bookingFromAPI.numberOfGuests,
+    customer: customer ? {
+      name: customer.name,
+      email: customer.email,
+      phone: customer.phone,
+    } : bookingData.customer || {
+      name: 'Okänd',
+      email: 'N/A',
+      phone: 'N/A',
+    },
+  };
 };
