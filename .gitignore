@@ -27,3 +27,6 @@ dist-ssr
 .env
 .env.local
 .env.production
+
+# Restaurant ID (created by setup script)
+restaurant-id.txt
