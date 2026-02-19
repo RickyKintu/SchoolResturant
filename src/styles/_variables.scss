@@ -1,0 +1,48 @@
+// Color Palette
+$primary-color: #c89446;
+$primary-dark: #a67936;
+$secondary-color: #2c3e50;
+$accent-color: #e74c3c;
+$light-bg: #f8f9fa;
+$white: #ffffff;
+$text-dark: #333333;
+$text-light: #666666;
+$border-color: #e0e0e0;
+$success: #27ae60;
+$error: #e74c3c;
+$warning: #f39c12;
+
+// Typography
+$font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-heading: 'Georgia', serif;
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+$spacing-xxl: 4rem;
+
+// Border Radius
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 20px;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+$shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Breakpoints
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+$breakpoint-wide: 1200px;

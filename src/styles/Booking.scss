@@ -1,0 +1,202 @@
+@import './variables';
+@import './mixins';
+
+.booking {
+  .booking-hero {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+    color: $white;
+    text-align: center;
+    padding: $spacing-xxl $spacing-md;
+
+    @include mobile {
+      padding: $spacing-xl $spacing-sm;
+    }
+
+    h1 {
+      margin-bottom: $spacing-sm;
+    }
+
+    p {
+      font-size: 1.25rem;
+      margin: 0;
+      opacity: 0.95;
+    }
+  }
+
+  .booking-content {
+    padding: $spacing-xxl $spacing-md;
+
+    @include mobile {
+      padding: $spacing-lg $spacing-sm;
+    }
+  }
+
+  .booking-search,
+  .booking-form-wrapper,
+  .booking-success {
+    max-width: 600px;
+    margin: 0 auto;
+    @include card;
+
+    h2 {
+      color: $primary-color;
+      text-align: center;
+      margin-bottom: $spacing-lg;
+    }
+
+    h3 {
+      color: $text-dark;
+      margin-bottom: $spacing-md;
+    }
+  }
+
+  .search-form,
+  .booking-form {
+    .form-actions {
+      display: flex;
+      gap: $spacing-md;
+      margin-top: $spacing-lg;
+
+      @include mobile {
+        flex-direction: column;
+      }
+
+      button {
+        flex: 1;
+      }
+    }
+  }
+
+  .available-times {
+    margin-top: $spacing-xl;
+    padding-top: $spacing-xl;
+    border-top: 2px solid $border-color;
+
+    h3 {
+      color: $primary-color;
+    }
+
+    .info-text {
+      color: $text-light;
+      margin-bottom: $spacing-md;
+    }
+
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: $spacing-md;
+
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .time-slot-button {
+      @include button-primary;
+      font-size: 1.25rem;
+      padding: $spacing-lg;
+      transition: all $transition-normal;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .booking-summary {
+    background: $light-bg;
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    margin-bottom: $spacing-lg;
+
+    p {
+      margin-bottom: $spacing-xs;
+
+      strong {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .gdpr-consent {
+    margin: $spacing-lg 0;
+    padding: $spacing-md;
+    background: $light-bg;
+    border-radius: $radius-md;
+
+    .checkbox-label {
+      display: flex;
+      gap: $spacing-sm;
+      cursor: pointer;
+      align-items: flex-start;
+
+      input[type='checkbox'] {
+        margin-top: 4px;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+
+      span {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: $text-dark;
+
+        strong {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .booking-success {
+    text-align: center;
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: $success;
+      color: $white;
+      font-size: 3rem;
+      @include flex-center;
+      margin: 0 auto $spacing-lg;
+      animation: scaleIn 0.5s ease;
+    }
+
+    h2 {
+      color: $success;
+      margin-bottom: $spacing-md;
+    }
+
+    p {
+      font-size: 1.125rem;
+      color: $text-light;
+      margin-bottom: $spacing-xl;
+    }
+
+    .booking-details {
+      background: $light-bg;
+      padding: $spacing-lg;
+      border-radius: $radius-md;
+      margin-bottom: $spacing-xl;
+      text-align: left;
+
+      h3 {
+        color: $primary-color;
+        margin-bottom: $spacing-md;
+        text-align: center;
+      }
+
+      p {
+        margin-bottom: $spacing-xs;
+        font-size: 1rem;
+
+        strong {
+          color: $text-dark;
+        }
+      }
+    }
+  }
+}

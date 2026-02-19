@@ -1,0 +1,194 @@
+@import './variables';
+@import './mixins';
+
+.home {
+  .hero {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+    color: $white;
+    text-align: center;
+    padding: $spacing-xxl * 3 $spacing-md;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M0 50 Q 25 25, 50 50 T 100 50" stroke="rgba(255,255,255,0.1)" fill="none" stroke-width="2"/></svg>');
+      opacity: 0.3;
+    }
+
+    @include tablet {
+      padding: $spacing-xxl * 2 $spacing-md;
+    }
+
+    @include mobile {
+      padding: $spacing-xxl $spacing-sm;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+
+      h1 {
+        font-size: 4rem;
+        margin-bottom: $spacing-md;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+        @include tablet {
+          font-size: 3rem;
+        }
+
+        @include mobile {
+          font-size: 2.5rem;
+        }
+      }
+
+      .tagline {
+        font-size: 1.5rem;
+        margin-bottom: $spacing-xl;
+        opacity: 0.95;
+
+        @include mobile {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+
+  .about {
+    padding: $spacing-xxl $spacing-md;
+    background: $white;
+
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+
+      h2 {
+        color: $primary-color;
+        margin-bottom: $spacing-lg;
+      }
+
+      p {
+        font-size: 1.125rem;
+        color: $text-light;
+        margin-bottom: $spacing-md;
+        line-height: 1.8;
+      }
+    }
+  }
+
+  .features {
+    padding: $spacing-xxl $spacing-md;
+    background: $light-bg;
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: $spacing-xl;
+
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-card {
+      @include card;
+      text-align: center;
+      transition: all $transition-normal;
+
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: $shadow-xl;
+      }
+
+      .feature-icon {
+        font-size: 4rem;
+        margin-bottom: $spacing-md;
+      }
+
+      h3 {
+        color: $primary-color;
+        margin-bottom: $spacing-sm;
+      }
+
+      p {
+        color: $text-light;
+        margin: 0;
+      }
+    }
+  }
+
+  .concept {
+    padding: $spacing-xxl $spacing-md;
+    background: $white;
+
+    .concept-content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+
+      h2 {
+        color: $primary-color;
+        margin-bottom: $spacing-lg;
+      }
+
+      p {
+        font-size: 1.125rem;
+        color: $text-light;
+        margin-bottom: $spacing-xl;
+        line-height: 1.8;
+      }
+
+      .concept-highlights {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: $spacing-lg;
+        margin-top: $spacing-xl;
+
+        @include mobile {
+          grid-template-columns: 1fr;
+        }
+
+        .highlight {
+          padding: $spacing-lg;
+          background: $light-bg;
+          border-radius: $radius-lg;
+          transition: all $transition-normal;
+
+          &:hover {
+            background: lighten($primary-color, 40%);
+            transform: scale(1.05);
+          }
+
+          strong {
+            display: block;
+            font-size: 1.5rem;
+            color: $primary-color;
+            margin-bottom: $spacing-xs;
+          }
+
+          span {
+            color: $text-light;
+          }
+        }
+      }
+    }
+  }
+
+  .cta-section {
+    padding: $spacing-xxl $spacing-md;
+    background: linear-gradient(135deg, $secondary-color 0%, darken($secondary-color, 10%) 100%);
+    color: $white;
+    text-align: center;
+
+    h2 {
+      color: $white;
+      margin-bottom: $spacing-lg;
+    }
+  }
+}

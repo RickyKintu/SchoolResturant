@@ -1,0 +1,169 @@
+@import './variables';
+@import './mixins';
+@import './animations';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-primary;
+  color: $text-dark;
+  line-height: 1.6;
+  background-color: $white;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.container {
+  @include container;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-heading;
+  line-height: 1.2;
+  margin-bottom: $spacing-md;
+}
+
+h1 {
+  font-size: 3rem;
+
+  @include tablet {
+    font-size: 2.5rem;
+  }
+
+  @include mobile {
+    font-size: 2rem;
+  }
+}
+
+h2 {
+  font-size: 2.5rem;
+
+  @include tablet {
+    font-size: 2rem;
+  }
+
+  @include mobile {
+    font-size: 1.75rem;
+  }
+}
+
+h3 {
+  font-size: 1.75rem;
+
+  @include mobile {
+    font-size: 1.5rem;
+  }
+}
+
+p {
+  margin-bottom: $spacing-sm;
+}
+
+// Loading state
+.loading {
+  @include flex-center;
+  padding: $spacing-xl;
+  font-size: 1.2rem;
+  color: $text-light;
+}
+
+// Error message
+.error-message {
+  background: lighten($error, 40%);
+  color: darken($error, 20%);
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  margin: $spacing-md 0;
+  border-left: 4px solid $error;
+  animation: slideIn 0.3s ease;
+}
+
+// Success message
+.success-message {
+  background: lighten($success, 40%);
+  color: darken($success, 20%);
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  margin: $spacing-md 0;
+  border-left: 4px solid $success;
+  animation: slideIn 0.3s ease;
+}
+
+// Buttons
+.cta-button {
+  @include button-primary;
+  font-size: 1.125rem;
+  padding: $spacing-md $spacing-xl;
+
+  &.secondary {
+    @include button-secondary;
+  }
+}
+
+.submit-button {
+  @include button-primary;
+  width: 100%;
+
+  @include tablet {
+    width: auto;
+  }
+}
+
+.cancel-button {
+  @include button-base;
+  background: transparent;
+  color: $text-dark;
+  border: 2px solid $border-color;
+
+  &:hover:not(:disabled) {
+    background: $light-bg;
+    border-color: $text-light;
+  }
+}
+
+// Form styles
+.form-group {
+  margin-bottom: $spacing-md;
+
+  label {
+    display: block;
+    margin-bottom: $spacing-xs;
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  input,
+  select,
+  textarea {
+    @include input-base;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .error-text {
+    display: block;
+    color: $error;
+    font-size: 0.875rem;
+    margin-top: $spacing-xs;
+  }
+}

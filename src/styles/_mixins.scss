@@ -1,0 +1,126 @@
+@import './variables';
+
+// Responsive breakpoints
+@mixin mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+@mixin wide {
+  @media (min-width: $breakpoint-wide) {
+    @content;
+  }
+}
+
+// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Button styles
+@mixin button-base {
+  padding: $spacing-sm $spacing-lg;
+  border: none;
+  border-radius: $radius-md;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $transition-normal;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background: $primary-color;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background: $primary-dark;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background: $secondary-color;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background: lighten($secondary-color, 10%);
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+// Card styles
+@mixin card {
+  background: $white;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-md;
+  transition: all $transition-normal;
+}
+
+// Container
+@mixin container {
+  max-width: $breakpoint-wide;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+
+  @include mobile {
+    padding: 0 $spacing-sm;
+  }
+}
+
+// Form input styles
+@mixin input-base {
+  width: 100%;
+  padding: $spacing-sm;
+  border: 2px solid $border-color;
+  border-radius: $radius-sm;
+  font-size: 1rem;
+  transition: all $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+
+  &.error {
+    border-color: $error;
+  }
+}

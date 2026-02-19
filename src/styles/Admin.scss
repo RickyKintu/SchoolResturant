@@ -1,0 +1,213 @@
+@import './variables';
+@import './mixins';
+
+.admin {
+  min-height: 100vh;
+  background: $light-bg;
+
+  .admin-header {
+    background: linear-gradient(135deg, $secondary-color 0%, darken($secondary-color, 10%) 100%);
+    color: $white;
+    text-align: center;
+    padding: $spacing-xxl $spacing-md;
+
+    @include mobile {
+      padding: $spacing-xl $spacing-sm;
+    }
+
+    h1 {
+      margin-bottom: $spacing-sm;
+    }
+
+    p {
+      font-size: 1.125rem;
+      margin: 0;
+      opacity: 0.95;
+    }
+  }
+
+  .admin-content {
+    padding: $spacing-xxl $spacing-md;
+
+    @include mobile {
+      padding: $spacing-lg $spacing-sm;
+    }
+  }
+
+  .admin-actions {
+    display: flex;
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl;
+
+    @include mobile {
+      flex-direction: column;
+    }
+
+    .add-button {
+      @include button-primary;
+      flex: 1;
+
+      @include mobile {
+        width: 100%;
+      }
+    }
+
+    .refresh-button {
+      @include button-secondary;
+      padding: $spacing-sm $spacing-lg;
+
+      @include mobile {
+        width: 100%;
+      }
+    }
+  }
+
+  .edit-form-wrapper {
+    @include card;
+    margin-bottom: $spacing-xl;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+    h2 {
+      color: $primary-color;
+      margin-bottom: $spacing-lg;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: $spacing-md;
+
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: $spacing-md;
+      margin-top: $spacing-lg;
+
+      @include mobile {
+        flex-direction: column;
+      }
+
+      button {
+        flex: 1;
+      }
+    }
+
+    .save-button {
+      @include button-primary;
+    }
+  }
+
+  .bookings-table-wrapper {
+    @include card;
+
+    h2 {
+      color: $primary-color;
+      margin-bottom: $spacing-lg;
+    }
+
+    .no-bookings {
+      text-align: center;
+      padding: $spacing-xl;
+      color: $text-light;
+      font-size: 1.125rem;
+    }
+  }
+
+  .bookings-table {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background: $light-bg;
+
+        th {
+          padding: $spacing-md;
+          text-align: left;
+          font-weight: 600;
+          color: $text-dark;
+          border-bottom: 2px solid $border-color;
+          white-space: nowrap;
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: 1px solid $border-color;
+          transition: all $transition-fast;
+
+          &:hover {
+            background: lighten($primary-color, 45%);
+          }
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          td {
+            padding: $spacing-md;
+            color: $text-dark;
+
+            &.actions {
+              white-space: nowrap;
+
+              button {
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                font-size: 1.25rem;
+                padding: $spacing-xs;
+                transition: all $transition-fast;
+                margin: 0 $spacing-xs / 2;
+
+                &:hover {
+                  transform: scale(1.2);
+                }
+
+                &:disabled {
+                  opacity: 0.5;
+                  cursor: not-allowed;
+                  transform: none;
+                }
+
+                &.edit-button:hover:not(:disabled) {
+                  filter: brightness(1.2);
+                }
+
+                &.delete-button:hover:not(:disabled) {
+                  filter: hue-rotate(10deg) brightness(1.2);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @include tablet {
+      table {
+        font-size: 0.875rem;
+
+        th,
+        td {
+          padding: $spacing-sm;
+        }
+      }
+    }
+  }
+
+  .loading {
+    text-align: center;
+    padding: $spacing-xl;
+    color: $text-light;
+    font-size: 1.125rem;
+  }
+}
