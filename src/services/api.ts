@@ -19,21 +19,55 @@ export const createRestaurant = async (restaurantData: Omit<Restaurant, 'id'>): 
   return response.json();
 };
 
-// Booking API
-export const checkAvailability = async (data: AvailabilityCheck): Promise<string[]> => {
-  const response = await fetch(`${API_BASE_URL}/booking/availability`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+// Get all bookings (needed by checkAvailability)
+export const getAllBookings = async (restaurantId: string): Promise<Booking[]> => {
+  const response = await fetch(`${API_BASE_URL}/booking/restaurant/${restaurantId}`);
 
   if (!response.ok) {
-    throw new Error('Failed to check availability');
+    // If no bookings exist, return empty array instead of throwing error
+    if (response.status === 404) {
+      return [];
+    }
+    throw new Error('Failed to fetch bookings');
   }
 
-  return response.json();
+  const data = await response.json();
+  // Ensure we always return an array
+  return Array.isArray(data) ? data : [];
+};
+
+// Booking API - Check availability
+export const checkAvailability = async (data: AvailabilityCheck): Promise<string[]> => {
+  // Get all bookings for the restaurant
+  const bookings = await getAllBookings(data.restaurantId);
+  
+  // Filter bookings for the requested date
+  const dateBookings = bookings.filter(booking => booking.date === data.date);
+  
+  // Count bookings per time slot
+  const timeSlotCounts: { [key: string]: number } = {
+    '18:00': 0,
+    '21:00': 0,
+  };
+  
+  dateBookings.forEach(booking => {
+    if (timeSlotCounts[booking.time] !== undefined) {
+      timeSlotCounts[booking.time]++;
+    }
+  });
+  
+  // Check which time slots are available (15 tables total)
+  const availableTimes: string[] = [];
+  const maxTables = 15;
+  
+  if (timeSlotCounts['18:00'] < maxTables) {
+    availableTimes.push('18:00');
+  }
+  if (timeSlotCounts['21:00'] < maxTables) {
+    availableTimes.push('21:00');
+  }
+  
+  return availableTimes;
 };
 
 export const createBooking = async (bookingData: BookingRequest): Promise<Booking> => {
@@ -47,16 +81,6 @@ export const createBooking = async (bookingData: BookingRequest): Promise<Bookin
 
   if (!response.ok) {
     throw new Error('Failed to create booking');
-  }
-
-  return response.json();
-};
-
-export const getAllBookings = async (restaurantId: string): Promise<Booking[]> => {
-  const response = await fetch(`${API_BASE_URL}/booking/restaurant/${restaurantId}`);
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch bookings');
   }
 
   return response.json();
